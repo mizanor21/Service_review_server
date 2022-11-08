@@ -15,15 +15,13 @@ async function run() {
     try {
         const foodCollection = client.db('hungryNaki').collection('foodItems');
 
-        // app.post('/', async (req, res) => {
-        // })
-        const item = {
-            foodTitle: 'Birany',
-            price: 150,
-            description: 'Awesome birany!!'
-        }
-        const result = await foodCollection.insertOne(item);
-        res.send(result);
+        app.get('/food-items', async (req, res) => {
+            const query = {};
+            const cursor = foodCollection.find(query);
+            const result = await cursor.limit(3).toArray();
+            console.log(result)
+            res.send(result);
+        })
     }
     finally {
 
