@@ -22,6 +22,12 @@ async function run() {
             console.log(result)
             res.send(result);
         })
+        app.get('/services', async (req, res) => {
+            const query = {};
+            const cursor = foodCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
     }
     finally {
 
