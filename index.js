@@ -28,6 +28,7 @@ async function run() {
             const result = await foodReview.insertOne(review)
             res.send(result)
         })
+
         app.get('/food-items', async (req, res) => {
             const query = {};
             const cursor = foodCollection.find(query);
@@ -45,6 +46,12 @@ async function run() {
             const query = { _id: ObjectId(id) }
             const service = await foodCollection.findOne(query);
             res.send(service);
+        })
+        app.get('/reviews', async (req, res) => {
+            const query = {};
+            const cursor = foodReview.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
         })
     }
     finally {
